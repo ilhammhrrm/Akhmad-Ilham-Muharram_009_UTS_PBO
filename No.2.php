@@ -1,90 +1,97 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praktikum 5</title>
 </head>
 <body>
     <div class="container">
-        <h2>Soal 2</h2>
+	<style>
+		body {
+			align-items: center;
+		}
+		h2{
+			text-align: center;
+		}
+		.container{
+			margin: auto;
+			padding: 15px;
+			width: 350px;
+			border-style: groove;
+		}
+	</style>
+        <h2><u>Soal No.1</u></h2>
 
         <?php
-class Pegawai
-{
-	public  $nama;
-	public $gaji;
-	public	function __construct($nama, $gaji)
-	{
-		$this->nama = $nama;
-		$this->gaji = $gaji;
-	}
-	public	function infoGaji()
-	{
-		return $this->gaji;
-	}
-}
-class Manajer extends Pegawai
-{
-	private $tunjangan;
-	public	function __construct($nama, $gaji, $tunjangan)
-	{
-		parent::__construct($nama, $gaji);
-		$this->tunjangan = $tunjangan;
-	}
-	public	function infoGaji()
-	{
-		return $this->gaji;
-	}
-	public	function infoTunjangan()
-	{
-		return $this->tunjangan;
-	}
-}
-class Programmer extends Pegawai
-{
-	private $bonus;
-	public	function __construct($nama, $gaji, $bonus)
-	{
-		parent::__construct($nama, $gaji);
-		$this->bonus = $bonus;
-	}
-	public	function infoGaji()
-	{
-		return $this->gaji;
-	}
-	public	function infoBonus()
-	{
-		return $this->bonus;
-	}
-}
-class Bayaran
-{
-	public function hitungBayaran($peg)
-	{
-		$uang = $peg->infoGaji();
-		
-		return $uang;
-	}
-	public static function main($args)
-	{
-		echo "Asha Antania - 21091397068";
-        echo "<br>";
-		$man = new Manajer("Dicky", 9000000, 900000);
-        echo "<br>", "<br>";
-		$prog = new Programmer("Ramadhan", 5000000, 600000); 
-        echo "<br>", "<br>";
-		$hr = new Bayaran();
-		echo "<br> Gaji untuk Manajer Bernama ". $man->nama." : Rp. ".strval($hr->hitungBayaran($man)) , "\n";
-        echo "<br>", "<br>";
-		echo "<br>Gaji untuk Programmer Bernama ".$prog->nama. " : Rp. ".strval($hr->hitungBayaran($prog)) , "\n";
-      
-	}
-}
-Bayaran::main(array());
-        ?>
-        <!-- END PHP  -->
+			class Pegawai
+			{
+				public $nama;
+				public	function __construct($nama)
+				{
+					$this->nama = $nama;
+				}
+				public	function getNama()
+				{
+					return $this->nama;
+				}
+			}
+				class Manajer extends Pegawai
+				{
+					public $tunjangan;
+					public	function __construct($nama, $tunjangan)
+					{
+						parent::__construct($nama);
+						$this->tunjangan = $tunjangan;
+					}
+					public	function getTunjangan()
+					{
+						return $this->tunjangan;
+					}
+				}
+				class Kurir extends Pegawai
+				{
+					public $gaji;
+
+					public	function __construct($nama, $gaji)
+					{
+						parent::__construct($nama);
+						$this->gaji = $gaji;
+					}
+					public	function getGaji()
+					{
+						return $this->gaji;
+					}
+				}
+				class Soal1
+				{
+					public static
+					function Proses($peg)
+					{
+						if ($peg instanceof Manajer)
+						{
+							$man = $peg;
+							echo "Nama manajer: ".$man->nama, "\n";
+							echo "<br>Tunjangan: Rp. ".strval($man->tunjangan), "\n";
+						}
+						else if ($peg instanceof Kurir)
+						{
+							$kur =  $peg;
+							echo "Nama kurir: ".$kur->nama, "\n";
+							echo "<br>Gaji: Rp. ".strval($kur->gaji), "\n";
+						}
+					}
+					public static
+					function main($args)
+					{
+						$peg1 = new Manajer("Dwi", 5000000); 
+						Soal1::Proses($peg1);
+				        echo "<br>", "<br>";
+						$peg2 = new Kurir("Sri", 200000); 
+						Soal1::Proses($peg2);
+					}
+				}
+				Soal1::main(array());
+		?>
+   
     </div>
 </body>
 </html>
