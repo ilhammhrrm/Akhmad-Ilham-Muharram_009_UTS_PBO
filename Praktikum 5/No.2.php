@@ -19,79 +19,78 @@
 			border-style: groove;
 		}
 	</style>
-        <h2><u>Soal No.1</u></h2>
+        <h2><u>Soal No.2</u></h2>
 
         <?php
 			class Pegawai
 			{
-				public $nama;
-				public	function __construct($nama)
+				public  $nama;
+				public $gaji;
+				public	function __construct($nama, $gaji)
 				{
 					$this->nama = $nama;
+					$this->gaji = $gaji;
 				}
-				public	function getNama()
+				public	function infoGaji()
 				{
-					return $this->nama;
+					return $this->gaji;
 				}
 			}
 				class Manajer extends Pegawai
 				{
-					public $tunjangan;
-					public	function __construct($nama, $tunjangan)
+					private $tunjangan;
+					public	function __construct($nama, $gaji, $tunjangan)
 					{
-						parent::__construct($nama);
+						parent::__construct($nama, $gaji);
 						$this->tunjangan = $tunjangan;
 					}
-					public	function getTunjangan()
+					public	function infoGaji()
+					{
+						return $this->gaji;
+					}
+					public	function infoTunjangan()
 					{
 						return $this->tunjangan;
 					}
 				}
-				class Kurir extends Pegawai
+				class Programmer extends Pegawai
 				{
-					public $gaji;
-
-					public	function __construct($nama, $gaji)
+					private $bonus;
+					public	function __construct($nama, $gaji, $bonus)
 					{
-						parent::__construct($nama);
-						$this->gaji = $gaji;
+						parent::__construct($nama, $gaji);
+						$this->bonus = $bonus;
 					}
-					public	function getGaji()
+					public	function infoGaji()
 					{
 						return $this->gaji;
 					}
+					public	function infoBonus()
+					{
+						return $this->bonus;
+					}
 				}
-				class Soal1
+				class Bayaran
 				{
-					public static
-					function Proses($peg)
+					public function hitungBayaran($peg)
 					{
-						if ($peg instanceof Manajer)
-						{
-							$man = $peg;
-							echo "Nama manajer: ".$man->nama, "\n";
-							echo "<br>Tunjangan: Rp. ".strval($man->tunjangan), "\n";
-						}
-						else if ($peg instanceof Kurir)
-						{
-							$kur =  $peg;
-							echo "Nama kurir: ".$kur->nama, "\n";
-							echo "<br>Gaji: Rp. ".strval($kur->gaji), "\n";
-						}
+						$uang = $peg->infoGaji();
+						
+						return $uang;
 					}
-					public static
-					function main($args)
+					public static function main($args)
 					{
-						$peg1 = new Manajer("Dwi", 5000000); 
-						Soal1::Proses($peg1);
-				        echo "<br>", "<br>";
-						$peg2 = new Kurir("Sri", 200000); 
-						Soal1::Proses($peg2);
+						$man = new Manajer("Dwi", 7000000, 3000000);
+						$prog = new Programmer("Sri", 2000000, 1100000); 
+						$hr = new Bayaran();
+						echo "<br> Nama Manajer : ".$man->nama."<br> Gaji : Rp. ".strval($hr->hitungBayaran($man)) , "\n";
+				        echo "<br>";
+						echo "<br>Nama Programmer : ".$prog->nama. "<br> Gaji : Rp. ".strval($hr->hitungBayaran($prog)) , "\n";
+				      
 					}
 				}
-				Soal1::main(array());
+				Bayaran::main(array());
 		?>
-   
     </div>
 </body>
 </html>
